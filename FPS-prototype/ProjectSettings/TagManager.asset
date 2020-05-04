@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bomb
   - Ghost
+  - Tree
   layers:
   - Default
   - TransparentFX

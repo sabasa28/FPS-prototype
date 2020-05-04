@@ -8,11 +8,13 @@ public class PrimaryGun : MonoBehaviour
     AudioSource gunfire;
     Animation recoil;
     Quaternion origRot;
+    Player player;
     void Start()
     {
-        origRot = transform.localRotation;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gunfire = GetComponent<AudioSource>();
         recoil = GetComponent<Animation>();
+        origRot = transform.localRotation;
     }
 
     private void OnEnable()
@@ -37,6 +39,7 @@ public class PrimaryGun : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0)&&hit.transform.gameObject.tag=="Bomb")
             {
                 Destroy(hit.transform.gameObject);
+                player.points += 10;
             }
         }
         else

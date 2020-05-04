@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int HP = 100;
-    public bool GhostImmunity = false;//volver a setear private
-
-    void Start()
-    {
-
-    }
+    public int hp = 100;
+    public int points = 0;
+    bool GhostImmunity = false;
 
     void Update()
     {
-        if (HP<=0)
+        if (hp <= 0) 
         {
             Debug.Log("GAME OVER");
         }
+        if (points >= 100) 
+        {
+            Debug.Log("You Win");
+        }
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnTriggerEnter(Collider other)
     {
-        if (hit.gameObject.tag == "Bomb")
+        if (other.gameObject.tag == "Bomb")
         {
-            HP -= 50;
-            Destroy(hit.gameObject);
+            hp -= 50;
+            Destroy(other.gameObject);
         }
     }
 
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     {
         if (!GhostImmunity)
         {
-            HP -= 10;
+            hp -= 10;
             StartCoroutine(ImmunityTime());
         }
     }

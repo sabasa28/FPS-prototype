@@ -6,10 +6,12 @@ using UnityEngine;
 public class SecondaryGun : MonoBehaviour
 {
     public GameObject bullet;
+    public float shotForce;
     AudioSource gunfire;
     Animation recoil;
     Quaternion origRot;
     bool AbleToShoot = true;
+
     void Start()
     {
         origRot = transform.localRotation;
@@ -29,6 +31,7 @@ public class SecondaryGun : MonoBehaviour
             gunfire.Play();
             recoil.Play("GunShot");
             GameObject goTemp=Instantiate(bullet, transform.position, transform.rotation);
+            goTemp.GetComponent<BulletInteractions>().shotForce=shotForce;
             StartCoroutine(timeBetweenShots());
         }
     }
