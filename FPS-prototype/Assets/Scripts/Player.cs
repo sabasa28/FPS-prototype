@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+//using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -12,11 +14,15 @@ public class Player : MonoBehaviour
     {
         if (hp <= 0) 
         {
-            Debug.Log("GAME OVER");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene(2);
         }
         if (points >= 100) 
         {
-            Debug.Log("You Win");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene(2);
         }
     }
 

@@ -1,0 +1,12 @@
+SOURCES
+
+Visuals:
+-Unity Asset Store: Hand Painted Grass Texture
+-Unity Asset Store: Forest - Low Poly Toon Battle Arena / Tower Defense Pack
+-Unity Asset Store: Low Poly Flare Gun
+-Unity Asset Store: Hand-Painted Low Poly Guns Pack
+-Unity Asset Store: Chibi Mummy
+
+Sound Effects:
+-Unity Asset Store: Fog of War Gun Sound FX Free
+-freeSFX (https://www.freesfx.co.uk/sfx/match)
