@@ -6,7 +6,11 @@ Visuals:
 -Unity Asset Store: Low Poly Flare Gun
 -Unity Asset Store: Hand-Painted Low Poly Guns Pack
 -Unity Asset Store: Chibi Mummy
+-www.pngkey.com : Flare Gun icon
+-www.pngrepo.com : Crash Dummy icon
 
 Sound Effects:
 -Unity Asset Store: Fog of War Gun Sound FX Free
--freeSFX (https://www.freesfx.co.uk/sfx/match)
+-freeSFX (https://www.freesfx.co.uk/sfx/match):Match sound
+-freesound (https://freesound.org/people/keweldog/sounds/181148/): Timer sound 
+-freesound (https://freesound.org/people/Zangrutz/sounds/155235/?page=2#comments): Bomb Explotion sound

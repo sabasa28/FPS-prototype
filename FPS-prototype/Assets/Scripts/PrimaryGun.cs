@@ -6,14 +6,14 @@ public class PrimaryGun : MonoBehaviour
 {
     public float rayDistance = 10;
     AudioSource gunfire;
-    Animation recoil;
+    Animation animatation;
     Quaternion origRot;
     Player player;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gunfire = GetComponent<AudioSource>();
-        recoil = GetComponent<Animation>();
+        animatation = GetComponent<Animation>();
         origRot = transform.localRotation;
     }
 
@@ -27,7 +27,7 @@ public class PrimaryGun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             gunfire.Play();
-            recoil.Play("GunShot");
+            animatation.Play("GunShot");
         }
 
         RaycastHit hit;
@@ -38,8 +38,7 @@ public class PrimaryGun : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Mouse0)&&hit.transform.gameObject.tag=="Bomb")
             {
-                Destroy(hit.transform.gameObject);
-                player.points += 10;
+                hit.transform.gameObject.GetComponent<Bomb>().Die();
             }
         }
         else

@@ -7,6 +7,6 @@ public class PlayGame : MonoBehaviour
 {
     public void ToGameplayScene()
     {
-        SceneManager.LoadScene(1);
+        GameManager.Get().StartGameplay();
     }
 }

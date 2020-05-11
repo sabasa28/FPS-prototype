@@ -1,50 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
-    public float zLimit1 = -50f;
-    public float zLimit2 = 50f;
-    public float xLimit1 = -50f;
-    public float xLimit2 = 50f;
+    public enum GameState
+    { 
+        lost,
+        won,
+        playing
+    }
+    public GameState gameState = GameState.playing;
 
-    public GameObject ghost;
-    public GameObject bomb;
-    public Transform playerT;
-    public int ghostsAmount;
-    public int bombsAmount;
-    public int ghostsTargetAmount;
-    public int bombsTargetAmount;
-
-    void Start()
+    private static GameManager instance;
+    public static GameManager Get()
     {
-        playerT = GameObject.FindGameObjectWithTag("Player").transform;
+        return instance;
+    }
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
+    public void StartGameplay()
     {
-        while (ghostsAmount < ghostsTargetAmount)
-        {
-            Vector3 aux;
-            do
-            {
-                aux = new Vector3(Random.Range(xLimit1, xLimit2), 2, Random.Range(zLimit1, zLimit2));   
-            } while (Vector3.Distance(playerT.position,aux)<5);
-            Instantiate(ghost, aux, Quaternion.identity);
-            ghostsAmount++;
-        }
-        
-        while (bombsAmount < bombsTargetAmount)
-        {
-            Vector3 aux;
-            do
-            {
-                aux = new Vector3(Random.Range(xLimit1, xLimit2), 0.5f, Random.Range(zLimit1, zLimit2));
-            } while (Vector3.Distance(playerT.position, aux) < 5);
-            Instantiate(bomb, aux, Quaternion.identity);
-            bombsAmount++;
-        }
-        
+        SceneManager.LoadScene(1);
+        gameState = GameState.playing;
+    }
+    public void GameOver(int win)
+    {
+        SceneManager.LoadScene(2);
+        gameState = (GameState)win;
+    }
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene(0);
+        gameState = GameState.playing;
     }
 }

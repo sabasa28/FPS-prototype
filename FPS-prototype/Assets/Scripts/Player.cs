@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-//using UnityEngine.UIElements;
+
 
 public class Player : MonoBehaviour
 {
@@ -16,24 +15,24 @@ public class Player : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            SceneManager.LoadScene(2);
+            GameManager.Get().GameOver(0);
         }
         if (points >= 100) 
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            SceneManager.LoadScene(2);
+            GameManager.Get().GameOver(1);
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Bomb")
-        {
-            hp -= 50;
-            Destroy(other.gameObject);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.tag == "Bomb")
+    //    {
+    //        hp -= 50;
+    //        Destroy(other.gameObject);
+    //    }
+    //}
 
     private void OnTriggerStay(Collider trigger)
     {

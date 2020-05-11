@@ -4,22 +4,50 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    public GameManager gamemanager;
+    public GameplayManager gameplayManager;
     public float speed;
-    Vector3 movementDir = new Vector3(0,0,0);
+    Player player;
+    Vector3 movementDir = Vector3.zero;
+    enum State
+    { 
+        erratic,
+        aggressive,
+    }
+    State state = State.erratic;
     void Start()
     {
-        gamemanager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        player = FindObjectOfType<Player>();
+        gameplayManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();
         StartCoroutine(changeDir());
     }
 
     private void Update()
     {
-        transform.position += movementDir*Time.deltaTime *speed;
-        transform.rotation = Quaternion.LookRotation(movementDir);
+        switch (state)
+        {
+            case State.aggressive:
+                movementDir = player.transform.position - transform.position;
+                movementDir.y = 0;
+                movementDir.Normalize();
+                break;
+            case State.erratic:
+                break;
+        }
+        transform.position += movementDir * Time.deltaTime * speed;
+        if (movementDir != Vector3.zero) transform.rotation = Quaternion.LookRotation(movementDir);
 
-        if (transform.position.x < gamemanager.xLimit1 || transform.position.x > gamemanager.xLimit2 ||
-            transform.position.z < gamemanager.zLimit1 || transform.position.z > gamemanager.zLimit2)
+        if (Vector3.Distance(transform.position, player.transform.position) < 15)
+        {
+            state = State.aggressive;
+        }
+        else
+        {
+            state = State.erratic;
+        }
+        
+
+        if (transform.position.x < gameplayManager.xLimit1 || transform.position.x > gameplayManager.xLimit2 ||
+            transform.position.z < gameplayManager.zLimit1 || transform.position.z > gameplayManager.zLimit2)
         {
             Destroy(gameObject);
         }
@@ -31,11 +59,13 @@ public class Ghost : MonoBehaviour
         {
             movementDir = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
             movementDir.Normalize();
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(Random.Range(2, 4));
+            movementDir = Vector3.zero;
+            yield return new WaitForSeconds(Random.Range(0.5f, 2));
         }
     }
     void OnDestroy()
     {
-        gamemanager.ghostsAmount--;
+        gameplayManager.ghostsAmount--;
     }
 }
