@@ -1,52 +1,20 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class Player : MonoBehaviour
 {
-    public int hp = 100;
-    public int points = 0;
+
     bool GhostImmunity = false;
-
-    void Update()
-    {
-        if (hp <= 0) 
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            GameManager.Get().GameOver(0);
-        }
-        if (points >= 100) 
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            GameManager.Get().GameOver(1);
-        }
-    }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.tag == "Bomb")
-    //    {
-    //        hp -= 50;
-    //        Destroy(other.gameObject);
-    //    }
-    //}
+    public Action<GameObject> subtractLife;
 
     private void OnTriggerStay(Collider trigger)
     {
-        if (trigger.gameObject.tag == "Ghost")
+        if (trigger.gameObject.CompareTag("Ghost") && !GhostImmunity)
         {
-            HitByGhost();
-        }
-    }
-
-    void HitByGhost()
-    {
-        if (!GhostImmunity)
-        {
-            hp -= 10;
+            subtractLife(trigger.gameObject);
             StartCoroutine(ImmunityTime());
         }
     }

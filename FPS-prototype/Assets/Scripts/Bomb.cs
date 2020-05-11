@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public GameplayManager gameplayManager;
     Player player;
     GameObject fuse;
     MeshRenderer mRenderer;
@@ -14,6 +14,9 @@ public class Bomb : MonoBehaviour
     Color originalCol;
     float timeToChangeCol = 3.0f;
     int distToActivate = 5;
+    public Action addScore;
+    public Action <GameObject> hurtPlayer;
+    public Action updateBombAmount;
     enum State
     { 
         off,
@@ -23,7 +26,6 @@ public class Bomb : MonoBehaviour
     State state = State.off;
     void Start()
     {
-        gameplayManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();
         player = FindObjectOfType<Player>();
         fuse = transform.GetChild(0).gameObject;
         audioSource = GetComponents<AudioSource>();
@@ -58,7 +60,7 @@ public class Bomb : MonoBehaviour
 
     private void OnDestroy()
     {
-        gameplayManager.bombsAmount--;
+        updateBombAmount();
     }
 
     public IEnumerator Explode()
@@ -77,7 +79,7 @@ public class Bomb : MonoBehaviour
         state = State.exploded;
         turnInvisible();
         yield return new WaitForSeconds(1);
-        player.hp -= 50;
+        hurtPlayer(gameObject);
         Destroy(gameObject);
     }
 
@@ -85,7 +87,7 @@ public class Bomb : MonoBehaviour
     {
         if (state != State.exploded)
         {
-            player.points += 10;
+            addScore();
             Destroy(gameObject);
         }
     }

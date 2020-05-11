@@ -32,17 +32,18 @@ public class GameManager : MonoBehaviour
 
     public void StartGameplay()
     {
-        SceneManager.LoadScene(1);
         gameState = GameState.playing;
+        SceneManager.LoadScene(1);
     }
     public void GameOver(int win)
     {
-        SceneManager.LoadScene(2);
         gameState = (GameState)win;
+        SceneManager.LoadScene(2);
     }
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);
         gameState = GameState.playing;
     }
+
 }

@@ -23,9 +23,6 @@ public class EndscreenText : MonoBehaviour
             case GameManager.GameState.lost:
                 textMeshPro.text = "Game over...";
                 break;
-            case GameManager.GameState.playing:
-                Debug.Log("ERROR!!!!!");
-                break;
         }
     }
 }

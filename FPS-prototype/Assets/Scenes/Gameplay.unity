@@ -801,6 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950fda6f2c6a46b4d90ef1728cfd861a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: 2
 --- !u!4 &428251442
 Transform:
   m_ObjectHideFlags: 0
@@ -1473,7 +1474,7 @@ GameObject:
   - component: {fileID: 1001133703}
   - component: {fileID: 1001133702}
   m_Layer: 0
-  m_Name: Game
+  m_Name: Gameplay
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1491,17 +1492,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48669369a1a79b439a899114abff6bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zLimit1: -50
-  zLimit2: 50
-  xLimit1: -50
-  xLimit2: 50
+  UIText: {fileID: 1269011982}
   ghost: {fileID: 8366732731884707372, guid: 6c2ea673f7c775b42b7cedf9e4df5421, type: 3}
   bomb: {fileID: 7079983408354554126, guid: 167927ef699300144bca0b06eaafcd23, type: 3}
-  playerT: {fileID: 0}
   ghostsAmount: 0
   bombsAmount: 0
   ghostsTargetAmount: 30
   bombsTargetAmount: 30
+  healthPoints: 100
+  score: 0
 --- !u!4 &1001133703
 Transform:
   m_ObjectHideFlags: 0
@@ -1514,7 +1513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1017272712 stripped
 Transform:
@@ -1660,7 +1659,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1137521674 stripped
 Transform:
@@ -1851,6 +1850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToShow: {fileID: 0}
+  healthShown: 0
+  scoreShown: 0
 --- !u!1 &1280858634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,8 +2103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4befd4bf35e777f49a1e5f986baecd1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  points: 0
 --- !u!1001 &1352675268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2343,7 +2342,7 @@ RectTransform:
   m_Children:
   - {fileID: 1269011979}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    public GameplayManager gameplayManager;
+    public float zMinLimit;
+    public float zMaxLimit;
+    public float xMinLimit;
+    public float xMaxLimit;
+ 
     public float speed;
     Player player;
     Vector3 movementDir = Vector3.zero;
@@ -14,10 +19,13 @@ public class Ghost : MonoBehaviour
         aggressive,
     }
     State state = State.erratic;
+
+    public Action<GameObject> hurtPlayer;
+    public Action updateGhostAmount;
+
     void Start()
     {
         player = FindObjectOfType<Player>();
-        gameplayManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();
         StartCoroutine(changeDir());
     }
 
@@ -46,8 +54,8 @@ public class Ghost : MonoBehaviour
         }
         
 
-        if (transform.position.x < gameplayManager.xLimit1 || transform.position.x > gameplayManager.xLimit2 ||
-            transform.position.z < gameplayManager.zLimit1 || transform.position.z > gameplayManager.zLimit2)
+        if (transform.position.x < xMinLimit || transform.position.x > xMaxLimit ||
+            transform.position.z < zMinLimit || transform.position.z > zMaxLimit)
         {
             Destroy(gameObject);
         }
@@ -57,15 +65,15 @@ public class Ghost : MonoBehaviour
     {
         while(true)
         {
-            movementDir = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
+            movementDir = new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), 0, UnityEngine.Random.Range(-1.0f, 1.0f));
             movementDir.Normalize();
-            yield return new WaitForSeconds(Random.Range(2, 4));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(2, 4));
             movementDir = Vector3.zero;
-            yield return new WaitForSeconds(Random.Range(0.5f, 2));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2));
         }
     }
     void OnDestroy()
     {
-        gameplayManager.ghostsAmount--;
+        updateGhostAmount();
     }
 }

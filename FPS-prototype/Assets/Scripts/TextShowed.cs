@@ -1,22 +1,33 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class TextShowed : MonoBehaviour
 {
     public TextMeshProUGUI textToShow;
-    Player player;
+    GameplayManager gameplayManager;
+    public int healthShown = 0;
+    public int scoreShown = 0;
+
+
+    public Action setGameplayUIText;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        gameplayManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();
         textToShow = gameObject.GetComponent <TextMeshProUGUI>();
     }
 
+
+
     void Update()
     {
-        textToShow.text = "Health: " + player.hp + "\nPoints: " + player.points;
+        setGameplayUIText();
+
+        textToShow.text = "Health: " + healthShown + "\nPoints: " + scoreShown;
     }
 }
